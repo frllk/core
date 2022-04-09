@@ -8,7 +8,9 @@ const nodePolyfills = require('@esbuild-plugins/node-modules-polyfill')
 const { resolve, relative } = require('path')
 const args = require('minimist')(process.argv.slice(2))
 
+// 输入目标，打包那些package
 const target = args._[0] || 'vue'
+// 输出格式，比如cjs，esm，global
 const format = args.f || 'global'
 const inlineDeps = args.i || args.inline
 const pkg = require(resolve(__dirname, `../packages/${target}/package.json`))
@@ -71,7 +73,7 @@ build({
   outfile,
   bundle: true,
   external,
-  sourcemap: true,
+  sourcemap: true, // 是否添加map文件
   format: outputFormat,
   globalName: pkg.buildOptions?.name,
   platform: format === 'cjs' ? 'node' : 'browser',

@@ -279,7 +279,9 @@ export function createAppAPI<HostElement>(
         isHydrate?: boolean,
         isSVG?: boolean
       ): any {
+        // 首次执行，并未挂载，因此走下面的代码
         if (!isMounted) {
+          // 1. 先创建当前根组件的vnode
           const vnode = createVNode(
             rootComponent as ConcreteComponent,
             rootProps
